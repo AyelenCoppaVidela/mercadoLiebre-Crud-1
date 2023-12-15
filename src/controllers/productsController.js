@@ -9,19 +9,21 @@ const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 const controller = {
 	// Root - Show all products
 	index: (req, res) => {
-		// Do the magic
+		res.render ('index')
 	},
 
 	// Detail - Detail from one product
 	detail: (req, res) => {
 		const {id} = req.params;
-		const product = products.find (product => product.id == id);
-		res.render(detail,{title:product.name,product,toThousand})
+		const product = products.find(product => product.id == id)
+		res.render ("detail", {title: product.name, product, toThousand})
 	},
 
 	// Create - Form to create
 	create: (req, res) => {
-		// Do the magic
+		const {id} = req.params;
+		const product = products.find(product => product.id == id)
+		res.render('product-create-form')
 	},
 	
 	// Create -  Method to store
@@ -31,16 +33,39 @@ const controller = {
 
 	// Update - Form to edit
 	edit: (req, res) => {
-		// Do the magic
+		const {id} = req.params;
+		const product = products.find(product => product.id == id)
+		res.render ("product-edit-form", {product, toThousand})
 	},
+
 	// Update - Method to update
 	update: (req, res) => {
-		// Do the magic
+			const {id} = req.params;
+			const {name,price,discount,category,description,image} = req.body 
+			const nuevoArray = products.map ( product => {
+				if (product.id == id){
+					return {
+						id,
+						name: name.trim(),
+						price,
+						discount,
+						category,
+						description : description.trim(),
+						image : image ? image : product.image,
+					}
+				}
+				return product
+			})
+			const json = JSON.stringify(nuevoArray);
+			fs.writeFileSync(productsFilePath,json, "utf-8");
+			res.redirect (`/products/detail/${id}`)
 	},
 
 	// Delete - Delete one product from DB
 	destroy : (req, res) => {
-		// Do the magic
+		let productsModify = loadProducts().filter(product => product.id !== +req.params.id);
+		storeProducts(productsModify);
+		res.redirect('/products')
 	}
 };
 
