@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<!-- Include Head -->
+<%- include('partials/head', {title: "formulario registro" }) %>
+
+    <body>
+        <!-- Header -->
+        <%- include('partials/headerNavbar') %>
+            <!-- /Header -->
+
+            <form action="/registro" method="post">
+                <section class="cuadrado_bordes">
+                <h2 class="titulo_cuenta">Crear cuenta</h2>
+                <h4 class="descripcion_cuenta">Comprá más rápido y lleva el control de tus compras</h4>
+                <section class="formulario_section">
+                    <div class="nombre_div">
+                    <p>
+                    <label for="nombre">Nombre</label>
+                    </p>
+                    <input id="cuadro_texto" type="text" name="nombre">
+                    </div>
+                    
+                    <div class="email_div">
+                    <p>
+                    <label for="email">Email</label>
+                    </p>
+                    <input id="cuadro_texto" type="email" name="email">
+                    </div>
+                
+                    <div class="telefono_div">
+                    <p>
+                    <label for="telefono">Teléfono (opcional)</label>
+                    </p>
+                    <input id="cuadro_texto" type="text" name="telefono">
+                    </div>
+                
+                    <div class="contraseña_div">
+                    <p>
+                    <label for="contraseña">Contraseña</label>
+                    </p>
+                    <input id="cuadro_texto" type="password" name="contraseña">
+                    </div>
+                </section>
+                    <div class="boton_registro_div">
+                    <a href=""><input id="boton_enviar" type="submit" value="Registrarse"></a>
+                    </div>
+                    <div class="abajo_formulario">
+                        <p class="formulario_pregunta">¿Ya tenés una cuenta? |</p>
+                        <a href="" class="inicia_sesion">Inicia sesión</a>
+                    </div>
+                </section>
+            </form>
+    </body>
+
+</html>
