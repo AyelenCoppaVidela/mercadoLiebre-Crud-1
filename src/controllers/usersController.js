@@ -13,10 +13,11 @@ const controller = {
     register: (req, res) => {
         let errors = validationResult(req);
         if (errors.isEmpty()) {
-            // No hay errores, seguimos adelante.
+            res.redirect('/users/registro');
         } else {
-            // Si hay errores, volvemos al formulario con los mensajes.
+            res.render('registro', { errors: errors.mapped(), old: req.body });
         }
     }
 }
     module.exports = controller;
+
