@@ -1,6 +1,21 @@
 // ************ Require's ************
 const express = require('express');
 const router = express.Router();
+const path = require('path');
+const multer= require ('multer');
+
+
+const storage = multer.diskStorage ({
+    destination: (req,file,cb) => {
+        cb(null,path.join (__dirname, '../../public/images/products'))
+    },
+    filename: (req,file,cb) => {
+        const newFileName = Date.now() + path.extname(file.originalname);
+        cb (null, newFileName)
+    }
+});
+
+const upload = multer ({storage})
 
 // ************ Controller Require ************
 const productsController = require('../controllers/productsController');
